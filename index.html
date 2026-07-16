@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>자놀 모음</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/style.css?v=20260716">
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="./index.html" class="site-title">
+      safe place
+    </a>
+  </header>
+
+  <main class="main-content">
+    <div class="page-heading">
+      <h1>자놀 모음</h1>
+      <p>독스를 1나1나 들어가서 확인하기에는 귀찮았다.</p>
+    </div>
+  <nav class="category-tabs" aria-label="문서 카테고리">
+    <button type="button" class="category-tab is-active" data-category="all">
+      전체
+    </button>
+
+    <button type="button" class="category-tab" data-category="character">
+      프로필
+    </button>
+
+    <button type="button" class="category-tab" data-category="world">
+      설정
+    </button>
+
+    <button type="button" class="category-tab" data-category="log">
+      기타
+    </button>
+  </nav>
+    <section
+      id="document-list"
+      class="document-grid"
+      aria-live="polite"
+    >
+      <p class="loading-message">문서를 불러오는 중입니다.</p>
+    </section>
+  </main>
+
+ <script src="./js/config.js?v=20260716"></script>
+<script src="./js/documents.js?v=20260716"></script>
+</body>
+</html>
