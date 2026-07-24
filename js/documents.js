@@ -1,4 +1,5 @@
 let allDocuments = [];
+let allCategories = [];
 let activeCategory = "all";
 
 async function loadDocuments() {
@@ -21,6 +22,11 @@ async function loadDocuments() {
       ? result.documents
       : [];
 
+     allCategories = Array.isArray(result.categories)
+      ? result.categories
+      : [];
+
+    renderCategoryTabs();
     renderFilteredDocuments();
 
   } catch (error) {
@@ -40,7 +46,53 @@ async function loadDocuments() {
       ?.addEventListener("click", loadDocuments);
   }
 }
+function renderCategoryTabs() {
+  const container = document.querySelector("#category-tabs");
 
+  if (!container) {
+    return;
+  }
+
+  const tabItems = [
+    {
+      key: "all",
+      label: "전체"
+    },
+    ...allCategories
+  ];
+
+  container.innerHTML = "";
+
+  tabItems.forEach(category => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "category-tab";
+    button.dataset.category = category.key;
+    button.textContent = category.label;
+
+    if (category.key === activeCategory) {
+      button.classList.add("is-active");
+    }
+
+    button.addEventListener("click", () => {
+      activeCategory = category.key;
+
+      document
+        .querySelectorAll(".category-tab")
+        .forEach(tab => {
+          tab.classList.toggle(
+            "is-active",
+            tab.dataset.category === activeCategory
+          );
+        });
+
+      renderFilteredDocuments();
+    });
+
+    container.appendChild(button);
+  });
+}
 function renderFilteredDocuments() {
   const list = document.querySelector("#document-list");
 
@@ -127,16 +179,12 @@ function renderDocuments(documents, container) {
   });
 }
 
-function getCategoryLabel(category) {
-  const labels = {
-    character: "프로필",
-    world: "설정",
-    log: "기타",
-    gallery: "갤러리",
-    etc: "그 외"
-  };
+function getCategoryLabel(categoryKey) {
+  const category = allCategories.find(
+    item => item.key === categoryKey
+  );
 
-  return labels[category] || "그 외";
+  return category?.label || categoryKey || "기타";
 }
 
 function formatDate(dateString) {
@@ -159,5 +207,4 @@ function escapeHtml(value) {
   return element.innerHTML;
 }
 
-setupCategoryTabs();
 loadDocuments();
