@@ -144,8 +144,9 @@ function renderDocuments(documents, container) {
     card.className = "document-card";
     card.href = `./document.html?id=${encodeURIComponent(documentData.id)}`;
 
-    const thumbnail =
-      documentData.thumbnail || SITE_CONFIG.defaultThumbnail;
+    const thumbnail = documentData.thumbnail
+  ? `images/${documentData.thumbnail}`
+  : SITE_CONFIG.defaultThumbnail;
 
     card.innerHTML = `
       <div class="document-thumbnail">
